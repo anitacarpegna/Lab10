@@ -8,6 +8,7 @@ import it.polito.tdp.rivers.db.RiversDAO;
 public class Model {
 	
 	private RiversDAO dao;
+	private Simulazione sim;
 	
 	public Model() {
 		this.dao = new RiversDAO();
@@ -48,6 +49,12 @@ public class Model {
 	//prendere flusso medio misurato
 	public double getFlussoMedio(River r) {
 		return this.dao.getFlussoMedio(r);
+	}
+	
+	public String run(River r, double k) {
+		sim=new Simulazione(this.getFlowsDatoRiver(r), k, this.getFlussoMedio(r));
+		sim.inizialize();
+		return this.sim.run();
 	}
 	
 	

@@ -56,9 +56,26 @@ public class FXMLController {
     	this.txtStartDate.appendText(model.getDataMinima(r).toString());
     	this.txtEndDate.appendText(model.getDataMassima(r).toString());
     	this.txtNumMeasurements.appendText(String.valueOf(model.getTotMisutazioni(r)));
-    	this.txtFMed.appendText(String.valueOf(model.getTotMisutazioni(r)));
+    	this.txtFMed.appendText(""+model.getFlussoMedio(r));
 
     }
+    
+    @FXML
+    void onActionSimula(ActionEvent event) {
+    	River r = this.boxRiver.getValue();
+    	double k;
+    	try {
+    		k = Double.parseDouble(txtK.getText());
+    	}
+    	catch (NumberFormatException e) {
+    		this.txtResult.setText("inserire un k valido");
+    		return;
+    	}
+    	
+    	String s = this.model.run(r, k);
+    	this.txtResult.setText(s);
+    }
+
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
